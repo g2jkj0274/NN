@@ -20,8 +20,20 @@ public class GameWindow extends JFrame {
         Image resizedImage = image.getScaledInstance(1280, 720,  Image.SCALE_SMOOTH);
         ImageIcon resizedIcon = new ImageIcon(resizedImage);
 
-        JLabel label = new JLabel(resizedIcon);
-        setContentPane(label);
+        // 배경 이미지를 가진 레이블 생성
+        JLabel backgroundLabel = new JLabel(resizedIcon);
+        backgroundLabel.setLayout(new FlowLayout()); // 레이아웃 설정
+
+        // CustomButton 생성
+        CustomButton startButton = new CustomButton("Start Game");
+        CustomButton optionsButton = new CustomButton("Options");
+
+        // 버튼을 배경 레이블에 추가
+        backgroundLabel.add(startButton);
+        backgroundLabel.add(optionsButton);
+
+        // 컨텐트 팬 설정
+        setContentPane(backgroundLabel);
 
         // 창 표시
         setVisible(true);
