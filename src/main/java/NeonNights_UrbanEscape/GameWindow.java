@@ -72,6 +72,9 @@ public class GameWindow extends JFrame {
         // optionsButton.addActionListener(...); // 옵션 버튼 리스너 설정
         buttonPanel.add(optionsButton);
 
+        CustomButton characterButton = new CustomButton("Character");
+        buttonPanel.add(characterButton);
+
         return buttonPanel;
     }
 
@@ -83,10 +86,32 @@ public class GameWindow extends JFrame {
     // 게임 컨텐츠를 위한 내부 클래스입니다.
     private class TestGamePanel extends JPanel {
         public TestGamePanel() {
-            setBackground(Color.BLACK); // 임시 배경 색 설정
-            // 게임 컨텐츠 구성을 여기에 추가...
+            setBackground(Color.BLACK);
+            setLayout(new BorderLayout());
+
+            // 메뉴 버튼 생성 및 설정
+            CustomButton menuButton = new CustomButton("Menu");
+            menuButton.addActionListener(e -> openPopupMenu());
+            add(menuButton, BorderLayout.NORTH);
+        }
+
+        // 팝업 메뉴를 여는 메소드
+        private void openPopupMenu() {
+            JPopupMenu popupMenu = new JPopupMenu();
+
+            // 메인 메뉴로 돌아가기 버튼
+            JMenuItem mainMenu = new JMenuItem("Main Menu");
+            mainMenu.addActionListener(e -> cardLayout.show(cardPanel, "MainMenu"));
+            popupMenu.add(mainMenu);
+
+            // 취소 버튼
+            JMenuItem cancel = new JMenuItem("Cancel");
+            cancel.addActionListener(e -> popupMenu.setVisible(false));
+            popupMenu.add(cancel);
+
+            // 팝업 메뉴 표시
+            popupMenu.show(this, getWidth() / 2, getHeight() / 2);
         }
     }
-
     // main 메소드는 Main 클래스에 있습니다.
 }
