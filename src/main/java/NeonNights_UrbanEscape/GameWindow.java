@@ -2,6 +2,8 @@ package NeonNights_UrbanEscape;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 public class GameWindow extends JFrame {
     private CardLayout cardLayout;
@@ -89,10 +91,26 @@ public class GameWindow extends JFrame {
             setBackground(Color.BLACK);
             setLayout(new BorderLayout());
 
+            setupKeyBindings();
+
             // 메뉴 버튼 생성 및 설정
             CustomButton menuButton = new CustomButton("Menu");
             menuButton.addActionListener(e -> openPopupMenu());
             add(menuButton, BorderLayout.NORTH);
+        }
+
+        private void setupKeyBindings() {
+            // 메뉴 열기 액션
+            Action openMenuAction = new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    openPopupMenu();
+                }
+            };
+
+            // InputMap과 ActionMap 설정
+            getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "openMenu");
+            getActionMap().put("openMenu", openMenuAction);
         }
 
         // 팝업 메뉴를 여는 메소드
